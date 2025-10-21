@@ -1,0 +1,1015 @@
+/* ===== Reset básico ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Merriweather', serif;
+  background-color: var(--color-bg);
+  line-height: 1.6;
+}
+
+/* ===== Variables ===== */
+:root {
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Merriweather', serif;
+  --font-decorative: 'Courier New';
+  --color-bg: #000;
+  --color-text: #f5f5f5;
+  --color-accent: #f25c54;
+  --color-accent-dark: #461b18;
+  --color-grey: #a7a7a7;
+  --color-border: #444;
+  --color-accent-rgb: 255, 92, 92;
+}
+
+/* ===== Header ===== */
+.header {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* izquierda - centro - derecha */
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  padding: 15px 20px;
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Logo SVG */
+
+.header__logo-container {
+  justify-self: start;
+}
+
+.header__logo {
+  width: 250px; /* tamaño de logo */
+  height: auto;
+  color: #ffffff; /* color blanco para logo */
+}
+
+.cls-1 {
+  fill: currentColor; /* hereda el color del logo */
+}
+
+/* Animacion del logo */
+.header__logo:hover {
+  animation: wobble 0.6s;
+}
+
+@keyframes wobble {
+  0% {transform: rotate(0deg); }
+  25% {transform: rotate(-15deg); }
+  50% {transform: rotate(15deg); }
+  75% {transform: rotate(-3deg); }
+  85% {transform: rotate(3deg); }
+  100% {transform: rotate(0deg); }
+}
+
+/* Contenedor título + hamburguesa (para móviles) */
+.header__title-toggle {
+  display: contents; /* por defecto actúa como un contenedor sin afectar grid */
+}
+
+/* Título */
+.header__title {
+  justify-self: center;
+  text-align: center;
+  font-family: var(--font-decorative);
+  font-size: clamp(1.1rem, 2.5vw, 2rem);
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Contenedor de nav */
+.header__right {
+  justify-self: end;
+}
+
+/* Navegación */
+.header__nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header__link {
+  font-family: var(--font-heading);
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header__link:hover {
+  color: var(--color-accent); 
+  background-color: var(--color-border);
+}
+
+/* Botón hamburguesa oculto, solo para diseño responsive */
+.header__toggle {
+  display: none;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Query para pantallas intermedias */
+
+@media (max-width: 1024px) {
+  .header {
+    display: flex;
+    flex-direction: column; /* apila: título arriba, logo y nav debajo */
+    align-items: center;    /* centra todo horizontalmente */
+    gap: 15px;              /* separación entre filas */
+    padding: 15px 20px;     /* mantienes el padding */
+  }
+
+  /* Logo centrado */
+  .header__logo-container {
+    justify-self: unset; /* ya no hace falta en flex */
+    margin-bottom: 5px;  /* opcional, un poquito de aire debajo del logo */
+  }
+
+  /* Título centrado */
+  .header__title {
+    text-align: center;
+    margin-bottom: 5px; /* espacio entre título y logo/nav */
+  }
+
+  /* Nav centrado */
+  .header__nav {
+    display: flex;        /* sigue en fila */
+    justify-content: center;
+    width: 100%;          /* opcional para que ocupe todo el ancho */
+  }
+
+  .header__nav ul {
+    gap: 15px;            /* un poco más compacto */
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+  }
+}
+
+/* Query para móviles */
+
+@media (max-width: 768px) {
+  
+  /* Header en columna */
+  .header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 15px 10px 5px 10px;
+    gap: 5px;
+  }
+
+  /* Logo y título uno encima del otro */
+  .header__logo-container {
+    justify-self: center;
+  }
+
+  /* Contenedor título + hamburguesa como fila */
+  .header__title-toggle {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0px;
+  }
+
+  .header__title {
+    margin: 0;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* Menú oculto por defecto */
+  .header__nav {
+    display: none;
+    flex-direction: column;
+    gap: 50px;
+    margin-top: 5px;
+  }
+
+  /* Mostrar menú cuando se active */
+  
+  .header__right {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centra nav horizontalmente */
+  flex-direction: column;
+  align-items: center;
+  }
+
+  .header__nav.active {
+  display: flex;
+  justify-content: center;
+}
+
+.header__nav.active ul {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.header__nav.active ul li .header__link {
+  font-size: 0.7rem; 
+  padding: 2px 8px;  
+}
+
+  /* Botón hamburguesa visible */
+  .header__toggle {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Ocultar hamburguesa cuando el menú está abierto */
+  .header__toggle.open {
+    display: none;
+  }
+}
+
+/* Secciones */
+.section {
+  padding: 0px 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* \\\\\\\\\\ Home ////////// */
+.home-section {
+  padding-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(20px, 5vw, 80px);
+}
+
+.home-section__title {
+  font-family: var(--font-heading);
+  color: var(--color-accent);
+  font-size: 4rem;
+  line-height: 1;
+ /* text-align: center; */
+  margin-bottom: 30px;
+}
+
+.home-section__desc {
+  color: var(--color-text);
+  font-size: 2rem;
+  line-height: 1;
+  flex-direction: column;
+}
+
+.home-section__info {
+  flex: 1 1 60%;
+  text-align: center;
+}
+
+.home-section__img {
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+  padding: 5px;
+  background: linear-gradient(45deg, var(--color-accent),var(--color-accent-dark));
+  background-size: 200%;
+  animation: gradientBorder 6s ease infinite;
+  transition: transform 0.4s ease;
+  max-width: 350px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.home-section__img:hover {
+  transform: scale(1.08);
+}
+
+@keyframes gradientBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.home-section__cv-button {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 20px;
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  font-family: var(--font-heading);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, background 0.5s ease, color 0.5s ease;
+  width: fit-content;
+}
+
+/* Animación de brillo con el hover */
+.home-section__cv-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-25deg);
+  transition: left 0.5s ease;
+}
+
+/* Movimiento del brillo */
+.home-section__cv-button:hover::before {
+  left: 125%;
+}
+
+/* Cambio de color al terminar el brillo */
+.home-section__cv-button:hover {
+  transform: translateY(-3px);
+  background: #fff; 
+  color: var(--color-accent);
+  transition-delay: 0.25s;
+}
+
+.home-section__cv-button:hover::before {
+  left: 125%;
+}
+
+/* Query para pantallas intermedias */
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 30px 15px; 
+  }
+
+  .home-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px; /* ajusta espacio entre texto, botón e imagen */
+  }
+}
+
+/*Query para móviles*/
+
+@media (max-width: 768px) {
+  /* Sección Home */
+  .section {
+    padding: 40px 15px; 
+  }
+
+  .home-section {
+    padding: 30px 10px;
+    flex-direction: column; 
+    text-align: center;
+    gap: 20px;
+  }
+
+  .home-section__title {
+    margin-bottom: 10px; 
+  }
+
+  .home-section__title h2 {
+    font-size: 2.2rem; 
+    line-height: 1.1;
+    margin-bottom: 15px;
+  }
+
+  .home-section__desc {
+    font-size: 1rem;
+    line-height: 1.4;
+    padding: 0 10px; 
+  }
+
+  .home-section__desc p {
+    margin-bottom: 15px; 
+  }
+
+  .home-section__cv-button {
+    padding: 8px 18px;
+    font-size: 1rem;
+    margin: 20px auto 5px; 
+  }
+
+  .home-section__img {
+    max-width: 230px; 
+    margin-top: 5px; 
+  }
+}
+
+/*  CTA 
+.cta-section {
+  text-align: center;
+}
+
+.cta-section__button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: opacity 0.3s ease;
+}
+
+
+.cta-section__button:hover {
+  opacity: 0.8;
+}
+*/
+
+/* \\\\\\\\\\ Sobre mí //////////*/
+
+.about-section {
+  padding-top: 20px;
+}
+
+.about-section__title {
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  text-align: center;
+  font-size: 6rem;
+}
+
+.about-section__desc {
+  margin-bottom: 20px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  text-align: left;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.about-section__desc p {
+  margin-bottom: 0.5em; 
+}
+
+/* \\\ Las skills /// */
+
+/* Contenedor de todas las skills */
+.about-section__skills {
+  margin: 40px auto 0;
+  max-width: 50%;
+}
+
+/* Título “Mis Skills” */
+.about-section__skills-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-accent);
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+/* Cada skill individual */
+.about-section__skill-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+/* Iconos de skill */
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Barra de skill */
+.about-section__skill-bar {
+  flex-grow: 1;
+  background: var(--color-border);
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+/* Nivel de skill (progreso) */
+.about-section__skill-level {
+  height: 100%;
+  background: var(--color-accent);
+  width: 0%;
+  transition: width 1s ease; 
+}
+
+/* \\ Query intermedia para tablets // */
+@media (max-width: 1024px) {
+
+  .about-section {
+    max-width: 800px;
+    padding: 0 15px;
+    text-align: center;
+    gap: 25px;
+  }
+
+  .about-section__title {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .about-section__desc {
+    font-size: 1.7rem;
+    line-height: 1.5;
+    padding: 0 10px;
+  }
+
+  .about-section__desc p {
+    margin-bottom: 15px;
+  }
+
+  .about-section__skills {
+    margin-top: 10px;
+    padding: 0;
+  }
+
+  .about-section__skills-title {
+    font-size: 2rem;
+    margin-top: 0;
+    padding-bottom: 5px;
+  }
+}
+
+/* Query para móviles */
+@media (max-width: 768px) {
+  /* Contenedor de la sección */
+  .about-section {
+    max-width: 600px;
+    padding: 0px 10px;
+    text-align: center;
+    gap: 20px;
+  }
+
+  /* Título "Sobre mí" */
+  .about-section__title {
+    font-size: 2.2rem;   /* igual que home h2 en móviles */
+    line-height: 1.1;
+    margin-bottom: 15px;
+  }
+
+  /* Descripción */
+  .about-section__desc {
+    font-size: 1rem;
+    line-height: 1.4;
+    padding: 0 10px;
+  }
+
+  /* Reducir margen del último párrafo para acercar Skills */
+  .about-section__desc p:last-child {
+    margin-bottom: 10px;
+  }
+
+  /* Título "Mis Skills" */
+  .about-section__skills-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* \\\\\\\\\\ Portfolio ////////// */
+
+.section .portfolio-section {
+  padding-top: 20px;
+}
+
+.portfolio-section__item {
+  margin-bottom: 30px;
+}
+
+.portfolio-section__title {
+  color: var(--color-accent);
+  font-size: 6rem;
+  font-family: var(--font-heading);
+  text-align: center;
+}
+.portfolio-section__item-title {
+  color: var(--color-text);
+  font-family: var(--font-decorative);
+  font-size: 4rem;
+  text-align: center;
+}
+
+/* //Grid Diseño Grafico \\*/ 
+
+/* Contenedor del grid */
+.portfolio-item__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Cada item del grid */
+.portfolio-item {
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.portfolio-item__title {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+/* Efecto hover */
+.portfolio-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* //Branding\\*/
+.portfolio-section__item--brand {
+  margin-bottom: 40px;
+}
+
+/* Slider tipo catálogo */
+.branding-slider {
+  width: 100%;
+  padding: 20px 0;
+  overflow: visible;
+}
+
+.branding-item {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.branding-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.branding-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* Modal Branding */
+.branding-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.branding-modal.active {
+  display: flex;
+}
+
+.branding-modal-content {
+  background: var(--color-bg);
+  border-radius: 16px;
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 3fr 2fr; /* Imagen principal 60%, descripción + apps 40% */
+  gap: 20px;
+  align-items: start;
+}
+
+.branding-main-image img {
+  width: 100%;
+  max-height: 400px; /* Limita altura para que no sea gigante */
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+}
+
+.branding-description h3 {
+  font-family: var(--font-decorative);
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--color-accent);
+  text-align: center;
+}
+
+.branding-description p {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--color-text);
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Contenedor de aplicaciones */
+.branding-applications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: start;
+}
+
+.branding-applications img {
+  width: 200px; 
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+/* Botón de cerrar */
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 3rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-modal:hover {
+  color: var(--color-accent);
+}
+
+/* Adaptación móvil */
+@media(max-width: 768px) {
+  .branding-modal-content {
+    grid-template-columns: 1fr;
+  }
+
+  .branding-main-image img {
+    max-width: 90%;
+    max-height: 300px;
+    margin: 0 auto;
+  }
+
+  .branding-applications {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .branding-applications img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+
+/* //Grid Ilustracion \\*/ 
+/* No muestro los titulos aqui */
+.portfolio-section__item--ilus .portfolio-item__title {
+    display: none;
+}
+
+/*Imagenes más grandes que en diseño gráfico*/
+
+.portfolio-section__item--ilus .portfolio-item__grid {
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+}
+
+.portfolio-section__item--ilus .portfolio-item img {
+    width: 100%; 
+    height: auto;
+}
+
+/* \\ Slider de Fotografía // */
+.portfolio-section__slider {
+  width: 100%;
+  margin-top: 40px;
+  background-color: var(--color-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Cada slide */
+.portfolio-section__slider .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+/* Imágenes */
+.portfolio-section__slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-section__slider img:hover {
+  transform: scale(1.03);
+}
+
+/* ===== Flechas personalizadas ===== */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-border);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Eliminar completamente el icono azul original */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: none !important;
+  background: none !important;
+}
+
+/* Añadir nuestras flechas personalizadas como pseudo-elementos nuevos */
+.swiper-button-next::before,
+.swiper-button-prev::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-color: var(--color-text);
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  transition: background-color 0.3s ease;
+}
+
+/* SVGs */
+.swiper-button-next::before {
+  mask-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 5l5 5-5 5'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 5l5 5-5 5'/%3E%3C/svg%3E");
+}
+
+.swiper-button-prev::before {
+  mask-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13 5l-5 5 5 5'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13 5l-5 5 5 5'/%3E%3C/svg%3E");
+}
+
+/* Hover */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: var(--color-accent);
+}
+
+.swiper-button-next:hover::before,
+.swiper-button-prev:hover::before {
+  background-color: var(--color-bg);
+}
+
+/* ===== Paginación (los puntitos) ===== */
+.swiper-pagination-bullet {
+  background: var(--color-accent) !important;
+  opacity: 0.6;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+
+/* ===== Contacto ===== */
+
+.contact-section {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.contact-section__title {
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  text-align: center;
+  font-size: 6rem;
+}
+
+.contact-section__desc {
+  font-size: 1.6rem;
+  margin-bottom: 40px;
+  color: var(--color-text-light);
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  text-align: left;
+  font-family: var(--font-heading);
+}
+
+.form-group label {
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+  color: var(--color-accent);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  font-size: 1.4rem;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.btn-send {
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 1.6rem;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-send:hover {
+  background-color: var(--color-accent-dark);
+}
+
+.form-status {
+  font-size: 1.4rem;
+  margin-top: 10px;
+  color: var(--color-text-light);
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  color: var(--color-grey);
+}
