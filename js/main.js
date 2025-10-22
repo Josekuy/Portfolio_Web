@@ -45,14 +45,15 @@ function animateSkills() {
 window.addEventListener('scroll', animateSkills);
 window.addEventListener('load', animateSkills);
 
-// =====================
+
 // SLIDER Y MODAL DE BRANDING
-// =====================
+
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Slider tipo catálogo Branding (Netflix style)
+
+  // --- Slider tipo catálogo Branding
   const brandingSwiper = new Swiper('.branding-slider', {
-    slidesPerView: 3,       // 3 slides visibles en escritorio
-    spaceBetween: 20,       // espacio entre slides
+    slidesPerView: 3,
+    spaceBetween: 20,
     grabCursor: true,
     navigation: {
       nextEl: '.portfolio-section__item--brand .swiper-button-next',
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === modal) modal.classList.remove('active');
   });;
 
-  // --- Slider Fotografía (fade uno a uno)
+  // --- Slider de seccion 'Fotografía' (fade uno a uno)
   new Swiper('.portfolio-section__item--foto .swiper', {
     loop: true,
     effect: 'fade',
@@ -131,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+  // --- Funcionalidad del formulario de contacto
 document.querySelector("#contact-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
