@@ -697,6 +697,27 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
+/* Tablets */
+@media (max-width: 1024px) {
+  .portfolio-item__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+  .portfolio-item__grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .portfolio-item img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 /* //Branding\\*/
 .portfolio-section__item--brand {
   margin-bottom: 40px;
